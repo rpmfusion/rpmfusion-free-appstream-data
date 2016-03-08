@@ -3,8 +3,8 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    22
-Release:    4%{?dist}
-Summary:    Appstream metadata for the RPMFusion free repository
+Release:    5%{?dist}
+Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
 License:    CC0
@@ -30,7 +30,7 @@ Source1:    %{reponame}-%{repoversion}-%{version}-icons.tar.gz
 BuildRequires: libappstream-glib
 
 %description
-Appstream metadata for packages in the RPMFusion free repository
+Appstream metadata for packages in the RPM Fusion free repository
 
 
 %prep
@@ -51,6 +51,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Tue Mar 08 2016 Nicolas Chauvet <kwizart@gmail.com> - 22-5
+- Fix project name
+
 * Wed May 27 2015 Ankur Sinha <ankursinha AT fedoraproject DOT org> 22-4
 - Added some more appdata files
 
