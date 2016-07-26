@@ -3,7 +3,7 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    24
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -21,8 +21,7 @@ URL:        http://rpmfusion.org
 # --enable-hidpi --basename="rpmfusion-free-24" --origin="rpmfusion-free-24"
 
 Source0:    %{reponame}-%{repoversion}-%{version}.xml.gz
-# No icons found apparently
-#Source1:    %{reponame}-%{repoversion}-%{version}-icons.tar.gz
+Source1:    %{reponame}-%{repoversion}-%{version}-icons.tar.gz
 #Source2:   %{reponame}-%{repoversion}-%{version}-screenshots.tar
 
 BuildRequires: libappstream-glib
@@ -38,17 +37,20 @@ Appstream metadata for packages in the RPM Fusion free repository
 
 
 %install
-DESTDIR=%{buildroot} appstream-util install %{SOURCE0} # %{SOURCE1}
+DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 
 
 %files
 %attr(0644,root,root) %{_datadir}/app-info/xmls/%{reponame}-%{repoversion}-%{version}.xml.gz
-# %{_datadir}/app-info/icons/%{reponame}-%{repoversion}-%{version}/
-#%dir %{_datadir}/app-info/icons
+%{_datadir}/app-info/icons/%{reponame}-%{repoversion}-%{version}/
+%dir %{_datadir}/app-info/icons
 %dir %{_datadir}/app-info
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Tue Jul 26 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 24-2
+- Generate icons correctly
+
 * Tue Jul 26 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 24-1
 - Initial build for f24
 
