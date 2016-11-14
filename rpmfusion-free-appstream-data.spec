@@ -2,8 +2,8 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    25
-Release:    3%{?dist}
+Version:    26
+Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -18,7 +18,7 @@ URL:        http://rpmfusion.org
 
 # appstream-builder --verbose --max-threads=6 --log-dir=./logs/ \
 # --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
-# --basename="rpmfusion-free-25" --origin="rpmfusion-free-25" \
+# --basename="rpmfusion-free-26" --origin="rpmfusion-free-26" \
 # --enable-hidpi
 
 # cp appstream-data/* ~/rpmbuild/SOURCES/
@@ -50,6 +50,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Nov 14 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 26-1
+- Regenerate and update for f26
+
 * Mon Nov 14 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 25-3
 - Add weak dep on Fedora appstream data
 
