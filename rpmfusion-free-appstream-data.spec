@@ -3,7 +3,7 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    25
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -25,7 +25,8 @@ URL:        http://rpmfusion.org
 Source0:    %{reponame}-%{repoversion}-%{version}.xml.gz
 Source1:    %{reponame}-%{repoversion}-%{version}-icons.tar.gz
 
-BuildRequires: libappstream-glib
+BuildRequires:  libappstream-glib
+Supplements:    appstream-data
 
 %description
 Appstream metadata for packages in the RPM Fusion free repository
@@ -49,6 +50,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Nov 14 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 25-3
+- Add weak dep on Fedora appstream data
+
 * Mon Nov 14 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 25-2
 - Regenerate and update
 
