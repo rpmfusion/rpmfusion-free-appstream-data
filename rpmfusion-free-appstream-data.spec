@@ -3,7 +3,7 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    25
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -49,6 +49,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Nov 14 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 25-2
+- Regenerate and update
+
 * Mon Jul 25 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 25-1
 - Initial build for rawhide
 
