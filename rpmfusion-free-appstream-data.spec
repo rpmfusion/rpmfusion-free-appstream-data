@@ -2,7 +2,7 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    26
+Version:    28
 Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
@@ -10,20 +10,10 @@ BuildArch:  noarch
 License:    CC0
 URL:        http://rpmfusion.org
 
-# mkdir rpmfusion-free/packages -p
-
-# cd rpmfusion-free
-# rsync -avPh rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/rawhide/Everything/x86_64/os/* .
-# rm -rf repo*
-
-# appstream-builder --verbose --max-threads=6 --log-dir=./logs/ \
-# --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
-# --basename="rpmfusion-free-26" --origin="rpmfusion-free-26" \
-# --enable-hidpi
-
-# cp appstream-data/* ~/rpmbuild/SOURCES/
 Source0:    %{reponame}-%{repoversion}-%{version}.xml.gz
 Source1:    %{reponame}-%{repoversion}-%{version}-icons.tar.gz
+# script to generate appdata
+Source2:    update-appdata-rpmfusion-free.sh
 
 BuildRequires:  libappstream-glib
 Supplements:    appstream-data
@@ -50,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Nov 13 2017 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 28-1
+- Update for rawhide
+
 * Mon Nov 14 2016 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 26-1
 - Regenerate and update for f26
 
