@@ -4,13 +4,13 @@ URL=""
 
 main ()
 {
-    mkdir rpmfusion-free/packages -pv
+    mkdir rpmfusion-free/ -pv
     cd rpmfusion-free
 
     if [ "$RELEASE" =  "28" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/rawhide/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "27" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/27/Everything/x86_64/os/*"
+        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/27/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "26" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/26/Everything/x86_64/os/*"
 
