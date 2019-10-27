@@ -10,11 +10,11 @@ main ()
     if [ "$RELEASE" =  "32" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/rawhide/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "31" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/29/Everything/x86_64/os/*"
+        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/31/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "30" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/28/Everything/x86_64/os/*"
+        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/30/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "29" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/27/Everything/x86_64/os/*"
+        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/29/Everything/x86_64/os/*"
 
     fi
 
