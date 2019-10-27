@@ -2,8 +2,8 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    30
-Release:    1.20181021%{?dist}
+Version:    32
+Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Sun Oct 27 2019 Leigh Scott <leigh123linux@gmail.com> - 32-1
+- Update for rawhide
+
 * Sun Oct 21 2018 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 30-1.20181021
 - Regenerate
 - Include generation timestamp so that the package is more informative
