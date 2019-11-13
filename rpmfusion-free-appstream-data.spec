@@ -3,7 +3,7 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    30
-Release:    1.20181021%{?dist}
+Release:    2.20181021%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Wed Nov 13 2019 Leigh Scott <leigh123linux@gmail.com> - 30-2.20181021
+- Regenerate for chromium-freeworld, chromium-browser-privacy and celluloid
+
 * Sun Oct 21 2018 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 30-1.20181021
 - Regenerate
 - Include generation timestamp so that the package is more informative
