@@ -7,14 +7,8 @@ main ()
     mkdir rpmfusion-free/ -pv
     cd rpmfusion-free || exit -1
 
-    if [ "$RELEASE" =  "30" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/rawhide/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "29" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/29/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "28" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/28/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "27" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/27/Everything/x86_64/os/*"
+    if [ "$RELEASE" =  "8" ]; then
+        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/el/updates/8/x86_64/*"
 
     fi
 
@@ -22,8 +16,8 @@ main ()
     rm -rf repo*
 #
     appstream-builder --verbose --max-threads=6 --log-dir=./logs/ \
-    --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
-    --basename="rpmfusion-free-$RELEASE" --origin="rpmfusion-free-$RELEASE" \
+    --packages-dir=./ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
+    --basename="rpmfusion-free-el$RELEASE" --origin="rpmfusion-free-el$RELEASE" \
     --enable-hidpi
 
     echo "Generated files are present in the appstream-data directory"
@@ -34,7 +28,7 @@ usage ()
     echo "$0 -r <release>"
     echo "- update appdata for rpmfusion free repository"
     echo "options:"
-    echo "-r <release> one of 27, 28, 29, and 30"
+    echo "-r <release> one of 8"
 }
 
 
