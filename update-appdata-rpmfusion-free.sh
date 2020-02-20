@@ -7,14 +7,14 @@ main ()
     mkdir rpmfusion-free/ -pv
     cd rpmfusion-free || exit -1
 
-    if [ "$RELEASE" =  "32" ]; then
+    if [ "$RELEASE" =  "33" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/rawhide/Everything/x86_64/os/*"
+    elif [ "$RELEASE" = "32" ]; then
+        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/32/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "31" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/31/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "30" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/30/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "29" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/29/Everything/x86_64/os/*"
 
     fi
 
@@ -34,7 +34,7 @@ usage ()
     echo "$0 -r <release>"
     echo "- update appdata for rpmfusion free repository"
     echo "options:"
-    echo "-r <release> one of 29, 30, 31, and 32"
+    echo "-r <release> one of 30, 31, 32 and 33"
 }
 
 
