@@ -2,8 +2,8 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    32
-Release:    2%{?dist}
+Version:    33
+Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Thu Feb 20 2020 Leigh Scott <leigh123linux@gmail.com> - 33-1
+- Update for rawhide
+
 * Wed Nov 13 2019 Leigh Scott <leigh123linux@gmail.com> - 32-2
 - Regenerate for chromium-freeworld and chromium-browser-privacy
 
