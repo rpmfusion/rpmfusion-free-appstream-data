@@ -1,6 +1,7 @@
 #!/bin/bash
 RELEASE=""
 URL=""
+#URL1=""
 
 main ()
 {
@@ -13,15 +14,23 @@ main ()
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/33/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "32" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/32/Everything/x86_64/os/*"
+        #URL1="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/updates/32/x86_64/*"
     elif [ "$RELEASE" = "31" ]; then
         URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/31/Everything/x86_64/os/*"
+        #URL1="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/updates/31/x86_64/*"
 
     fi
 
     rsync -avPh "$URL" .
+#    rsync -avPh --exclude debug "$URL1" ./Packages/
+
     rm -rf repo*
+#    rm -rf Packages/repo*
+#    createrepo -d Packages/
+#    repomanage -o --space  ./Packages/ | xargs rm
+#    rm -rf Packages/repo*
 #
-    appstream-builder --verbose --max-threads=6 --log-dir=./logs/ \
+    appstream-builder --verbose --include-failed --max-threads=6 --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
     --basename="rpmfusion-free-$RELEASE" --origin="rpmfusion-free-$RELEASE" \
     --enable-hidpi
