@@ -33,7 +33,7 @@ main ()
     appstream-builder --verbose --include-failed --max-threads=6 --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
     --basename="rpmfusion-free-$RELEASE" --origin="rpmfusion-free-$RELEASE" \
-    --enable-hidpi
+    --enable-hidpi --veto-ignore=missing-parents
 
     echo "Generated files are present in the appstream-data directory"
 }
