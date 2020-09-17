@@ -2,8 +2,8 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    33
-Release:    2%{?dist}
+Version:    34
+Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Thu Sep 17 2020 Leigh Scott <leigh123linux@gmail.com> - 34-1
+- Update for rawhide
+
 * Thu Sep 10 2020 Leigh Scott <leigh123linux@gmail.com> - 33-2
 - Regenerate for audacity-freeworld and openmw
 
