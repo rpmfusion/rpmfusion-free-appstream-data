@@ -9,15 +9,15 @@ main ()
     cd rpmfusion-free || exit -1
 
     if [ "$RELEASE" =  "34" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/rawhide/Everything/x86_64/os/*"
+        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/rawhide/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "33" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/development/33/Everything/x86_64/os/*"
+        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/33/Everything/x86_64/os/*"
     elif [ "$RELEASE" = "32" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/32/Everything/x86_64/os/*"
-        #URL1="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/updates/32/x86_64/*"
+        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/32/Everything/x86_64/os/*"
+        #URL1="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/updates/32/x86_64/*"
     elif [ "$RELEASE" = "31" ]; then
-        URL="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/releases/31/Everything/x86_64/os/*"
-        #URL1="rsync://rsync.mirrorservice.org/download1.rpmfusion.org/free/fedora/updates/31/x86_64/*"
+        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/31/Everything/x86_64/os/*"
+        #URL1="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/updates/31/x86_64/*"
 
     fi
 
