@@ -3,7 +3,7 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    34
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Sep 28 2020 Leigh Scott <leigh123linux@gmail.com> - 34-2
+- Regenerate
+
 * Thu Sep 17 2020 Leigh Scott <leigh123linux@gmail.com> - 34-1
 - Update for rawhide
 
