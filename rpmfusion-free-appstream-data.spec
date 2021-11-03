@@ -2,8 +2,8 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    34
-Release:    2%{?dist}
+Version:    35
+Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Wed Nov 03 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 35-1
+- Regenerate
+
 * Mon Sep 28 2020 Leigh Scott <leigh123linux@gmail.com> - 34-2
 - Regenerate
 
