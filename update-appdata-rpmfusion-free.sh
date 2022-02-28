@@ -8,14 +8,14 @@ main ()
     mkdir rpmfusion-free/ -pv
     cd rpmfusion-free || exit -1
 
-    if [ "$RELEASE" =  "36" ]; then
+    if [ "$RELEASE" =  "37" ]; then
         URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/rawhide/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "35" ]; then
+    elif [ "$RELEASE" = "36" ]; then
         URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/35/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "34" ]; then
+    elif [ "$RELEASE" = "35" ]; then
         URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/34/Everything/x86_64/os/*"
         #URL1="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/updates/32/x86_64/*"
-    elif [ "$RELEASE" = "33" ]; then
+    elif [ "$RELEASE" = "34" ]; then
         URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/31/Everything/x86_64/os/*"
         #URL1="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/updates/31/x86_64/*"
 
@@ -29,7 +29,14 @@ main ()
 #    createrepo -d Packages/
 #    repomanage -o --space  ./Packages/ | xargs rm
 #    rm -rf Packages/repo*
+
 #
+    if ! command -v appstream-builder > /dev/null
+    then
+        echo "appstream-builder not installed. Installing now."
+        sudo dnf install /usr/bin/appstream-builder
+    fi
+
     appstream-builder --verbose --include-failed --max-threads=6 --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
     --basename="rpmfusion-free-$RELEASE" --origin="rpmfusion-free-$RELEASE" \
@@ -43,7 +50,7 @@ usage ()
     echo "$0 -r <release>"
     echo "- update appdata for rpmfusion free repository"
     echo "options:"
-    echo "-r <release> one of 33, 34, 35 and 36"
+    echo "-r <release> one of 34, 35, 36 and 37"
 }
 
 

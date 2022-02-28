@@ -2,7 +2,7 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    36
+Version:    37
 Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Feb 28 2022 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 37-1
+- Regenerated for F37
+
 * Wed Nov 03 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 36-1
 - Regenerated
 
