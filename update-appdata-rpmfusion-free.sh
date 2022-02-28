@@ -1,40 +1,35 @@
 #!/bin/bash
+RAWHIDE="37"
 RELEASE=""
-URL=""
-#URL1=""
+URL_DEV=""
+URL_RELEASE=""
+TEMPDIR="rpmfusion-free"
 
 main ()
 {
+    rm -rf rpmfusion-free
     mkdir rpmfusion-free/ -pv
     cd rpmfusion-free || exit -1
 
-    if [ "$RELEASE" =  "37" ]; then
-        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/rawhide/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "36" ]; then
-        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/35/Everything/x86_64/os/*"
-    elif [ "$RELEASE" = "35" ]; then
-        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/34/Everything/x86_64/os/*"
-        #URL1="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/updates/32/x86_64/*"
-    elif [ "$RELEASE" = "34" ]; then
-        URL="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/31/Everything/x86_64/os/*"
-        #URL1="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/updates/31/x86_64/*"
+    if [ $RELEASE -le $RAWHIDE ] && [ $RELEASE -ge $((RAWHIDE - 3)) ]; then
+        if [ "$RELEASE" = "$RAWHIDE" ]; then
+            RELEASE="rawhide"
+        fi
 
+        URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/${RELEASE}/Everything/x86_64/os/*"
+        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/${RELEASE}/Everything/x86_64/os/*"
+
+        echo "Regenerating for $RELEASE"
+        rsync -avPh "$URL_RELEASE" . || rsync -avPh "$URL_DEV" .
+    else
+        echo "Please check if ${RELEASE} is currently supported. Rawhide is at ${RAWHIDE}."
+        exit -1
     fi
 
-    rsync -avPh "$URL" .
-#    rsync -avPh --exclude debug "$URL1" ./Packages/
-
-    rm -rf repo*
-#    rm -rf Packages/repo*
-#    createrepo -d Packages/
-#    repomanage -o --space  ./Packages/ | xargs rm
-#    rm -rf Packages/repo*
-
-#
     if ! command -v appstream-builder > /dev/null
     then
         echo "appstream-builder not installed. Installing now."
-        sudo dnf install /usr/bin/appstream-builder
+        sudo dnf install /usr/bin/appstream-builder -y
     fi
 
     appstream-builder --verbose --include-failed --max-threads=6 --log-dir=./logs/ \
@@ -43,6 +38,9 @@ main ()
     --enable-hidpi --veto-ignore=missing-parents
 
     echo "Generated files are present in the appstream-data directory"
+    echo "To import new sources, run:"
+    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-free-${RELEASE}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-free-${RELEASE}.xml.gz"
+
 }
 
 usage ()
@@ -50,7 +48,7 @@ usage ()
     echo "$0 -r <release>"
     echo "- update appdata for rpmfusion free repository"
     echo "options:"
-    echo "-r <release> one of 34, 35, 36 and 37"
+    echo "-r <release> one of [$RAWHIDE, $((RAWHIDE -3))]"
 }
 
 
@@ -65,6 +63,7 @@ do
     case $OPTION in
         r)
             RELEASE=$OPTARG
+
             main
             ;;
         h)
