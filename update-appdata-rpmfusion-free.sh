@@ -12,7 +12,12 @@ main ()
     cd rpmfusion-free || exit -1
 
     if [ $RELEASE -le $RAWHIDE ] && [ $RELEASE -ge $((RAWHIDE - 3)) ]; then
-        URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/rawhide/Everything/x86_64/os/*"
+        if [ "$RELEASE" == "$RAWHIDE" ]
+        then
+            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/rawhide/Everything/x86_64/os/*"
+        else
+            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/${RELEASE}/Everything/x86_64/os/*"
+        fi
         URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/${RELEASE}/Everything/x86_64/os/*"
 
         echo "Regenerating for $RELEASE"
