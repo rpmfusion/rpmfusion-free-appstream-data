@@ -3,7 +3,7 @@
 
 Name:       %{reponame}-%{repoversion}-appstream-data
 Version:    36
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
 
@@ -40,6 +40,9 @@ DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 %dir %{_datadir}/app-info/xmls
 
 %changelog
+* Mon Apr 25 2022 Ankur Sinha <sanjay.ankur@gmail.com> - 36-4
+- Regenerate
+
 * Mon Apr 25 2022 Ankur Sinha <sanjay.ankur@gmail.com> - 36-3
 - Regenerate
 
