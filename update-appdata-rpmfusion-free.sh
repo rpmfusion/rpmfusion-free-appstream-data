@@ -1,5 +1,5 @@
 #!/bin/bash
-RAWHIDE="37"
+RAWHIDE="39"
 RELEASE=""
 URL_DEV=""
 URL_RELEASE=""
