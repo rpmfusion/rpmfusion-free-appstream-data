@@ -1,5 +1,5 @@
 #!/bin/bash
-RAWHIDE="39"
+RAWHIDE="40"
 RELEASE=""
 URL_DEV=""
 URL_RELEASE=""
@@ -33,10 +33,10 @@ main ()
         sudo dnf install /usr/bin/appstream-builder -y
     fi
 
-    appstream-builder --verbose --include-failed --max-threads=6 --log-dir=./logs/ \
+    appstream-builder --verbose --include-failed --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
     --basename="rpmfusion-free-$RELEASE" --origin="rpmfusion-free-$RELEASE" \
-    --enable-hidpi --veto-ignore=missing-parents
+    --veto-ignore=missing-parents
 
     echo "Generated files are present in the appstream-data directory"
     echo "To import new sources, run:"
