@@ -2,7 +2,7 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    40
+Version:    41
 Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
@@ -31,15 +31,24 @@ Appstream metadata for packages in the RPM Fusion free repository
 %install
 DESTDIR=%{buildroot} appstream-util install %{SOURCE0} %{SOURCE1}
 
+# temporarily move to make Discover happy:
+# https://bugzilla.rpmfusion.org/show_bug.cgi?id=7000
+mv %{buildroot}%{_datadir}/app-info %{buildroot}%{_datadir}/swcatalog
+mv %{buildroot}%{_datadir}/swcatalog/xmls %{buildroot}%{_datadir}/swcatalog/xml
+
 
 %files
-%attr(0644,root,root) %{_datadir}/app-info/xmls/%{reponame}-%{repoversion}-%{version}.xml.gz
-%{_datadir}/app-info/icons/%{reponame}-%{repoversion}-%{version}/
-%dir %{_datadir}/app-info
-%dir %{_datadir}/app-info/icons
-%dir %{_datadir}/app-info/xmls
+%attr(0644,root,root) %{_datadir}/swcatalog/xml/%{reponame}-%{repoversion}-%{version}.xml.gz
+%{_datadir}/swcatalog/icons/%{reponame}-%{repoversion}-%{version}/
+%dir %{_datadir}/swcatalog
+%dir %{_datadir}/swcatalog/icons
+%dir %{_datadir}/swcatalog/xml
 
 %changelog
+* Wed Jul 10 2024 Ankur Sinha <sanjay.ankur@gmail.com> - 40-2
+- Regenerate
+- Move to new location to keep Discover happy
+
 * Fri Apr 19 2024 Leigh Scott <leigh123linux@gmail.com> - 40-1
 - Regenerate for F40
 
