@@ -45,7 +45,7 @@ mv %{buildroot}%{_datadir}/swcatalog/xmls %{buildroot}%{_datadir}/swcatalog/xml
 %dir %{_datadir}/swcatalog/xml
 
 %changelog
-* Wed Jul 10 2024 Ankur Sinha <sanjay.ankur@gmail.com> - 40-2
+* Wed Jul 10 2024 Ankur Sinha <sanjay.ankur@gmail.com> - 41-1
 - Regenerate
 - Move to new location to keep Discover happy
 
