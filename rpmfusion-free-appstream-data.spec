@@ -2,7 +2,7 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    41
+Version:    42
 Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
@@ -45,6 +45,9 @@ mv %{buildroot}%{_datadir}/swcatalog/xmls %{buildroot}%{_datadir}/swcatalog/xml
 %dir %{_datadir}/swcatalog/xml
 
 %changelog
+* Tue Apr 08 2025 Leigh Scott <leigh123linux@gmail.com> - 42-1
+- Regenerate
+
 * Wed Jul 10 2024 Ankur Sinha <sanjay.ankur@gmail.com> - 41-1
 - Regenerate
 - Move to new location to keep Discover happy
