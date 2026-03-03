@@ -1,24 +1,34 @@
 #!/bin/bash
-RAWHIDE="$(curl --silent --get https://bodhi.fedoraproject.org/releases/rawhide | jq -r '.version')"
-RELEASE=""
-URL_DEV=""
-URL_RELEASE=""
-TEMPDIR="rpmfusion-free"
+TYPE="free"
 
 main ()
 {
-    rm -rf rpmfusion-free
-    mkdir rpmfusion-free/ -pv
-    cd rpmfusion-free || exit -1
+    RAWHIDE="$(curl --silent --get https://bodhi.fedoraproject.org/releases/rawhide | jq -r '.version')"
+    RELEASE="$(git branch --show-current)"
+
+    if [ "$RELEASE" == "master" ] || [ "$RELEASE" == "rawhide" ] || [ "$RELEASE" == "main" ]
+    then
+        RELEASE=$RAWHIDE
+    fi
+
+    echo "Current release is: $RELEASE"
+
+    URL_DEV=""
+    URL_RELEASE=""
+    TEMPDIR="rpmfusion-$TYPE"
+
+    rm -rf "$TEMPDIR"
+    mkdir "$TEMPDIR" -pv
+    cd "$TEMPDIR" || exit -1
 
     if [ $RELEASE -le $RAWHIDE ] && [ $RELEASE -ge $((RAWHIDE - 3)) ]; then
         if [ "$RELEASE" == "$RAWHIDE" ]
         then
-            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/rawhide/Everything/x86_64/os/*"
+            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/rawhide/Everything/x86_64/os/*"
         else
-            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/development/${RELEASE}/Everything/x86_64/os/*"
+            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/${RELEASE}/Everything/x86_64/os/*"
         fi
-        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/free/fedora/releases/${RELEASE}/Everything/x86_64/os/*"
+        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/releases/${RELEASE}/Everything/x86_64/os/*"
 
         echo "Regenerating for $RELEASE"
         rsync -avPh "$URL_RELEASE" . || rsync -avPh "$URL_DEV" .
@@ -35,48 +45,28 @@ main ()
 
     appstream-builder --verbose --include-failed --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
-    --basename="rpmfusion-free-$RELEASE" --origin="rpmfusion-free-$RELEASE" \
+    --basename="rpmfusion-$TYPE-$RELEASE" --origin="rpmfusion-$TYPE-$RELEASE" \
     --veto-ignore=missing-parents
 
     echo "Generated files are present in the appstream-data directory"
     echo "To import new sources, run:"
-    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-free-${RELEASE}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-free-${RELEASE}.xml.gz"
+    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}.xml.gz"
 
     echo "To bump the spec:"
-    echo "rpmdev-bumpspec -c "Regenerate" rpmfusion-free-appstream-data.spec"
+    echo "rpmdev-bumpspec -c "Regenerate" rpmfusion-$TYPE-appstream-data.spec"
 
 }
 
 usage ()
 {
-    echo "$0 -r <release>"
-    echo "- update appdata for rpmfusion free repository"
-    echo "options:"
-    echo "-r <release> one of [$RAWHIDE, $((RAWHIDE -3))]"
+    echo "$0: update appdata for rpmfusion $TYPE repository"
 }
 
 
-if [ "$#" -eq 0 ]; then
+if [ "$#" -ne 0 ]; then
     usage
     exit 0
 fi
 
-# parse options
-while getopts "r:h" OPTION
-do
-    case $OPTION in
-        r)
-            RELEASE=$OPTARG
 
-            main
-            ;;
-        h)
-            usage
-            exit 1
-            ;;
-        ?)
-            usage
-            exit 1
-            ;;
-    esac
-done
+main
