@@ -2,7 +2,7 @@
 %global     repoversion free
 
 Name:       %{reponame}-%{repoversion}-appstream-data
-Version:    43
+Version:    45
 Release:    1%{?dist}
 Summary:    Appstream metadata for the RPM Fusion free repository
 BuildArch:  noarch
@@ -45,6 +45,9 @@ mv %{buildroot}%{_datadir}/swcatalog/xmls %{buildroot}%{_datadir}/swcatalog/xml
 %dir %{_datadir}/swcatalog/xml
 
 %changelog
+* Tue Mar 03 2026 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 45-1
+- Regenerate
+
 * Tue Apr 08 2025 Leigh Scott <leigh123linux@gmail.com> - 43-1
 - Regenerate
 
