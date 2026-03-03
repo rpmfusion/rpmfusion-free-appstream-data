@@ -1,5 +1,5 @@
 #!/bin/bash
-RAWHIDE="45"
+RAWHIDE="$(curl --silent --get https://bodhi.fedoraproject.org/releases/rawhide | jq -r '.version')"
 RELEASE=""
 URL_DEV=""
 URL_RELEASE=""
