@@ -47,12 +47,12 @@ main ()
 
     appstream-builder --verbose --include-failed --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
-    --basename="rpmfusion-$TYPE-$RELEASE" --origin="rpmfusion-$TYPE-$RELEASE" \
+    --basename="rpmfusion-$TYPE-$RELEASEVER" --origin="rpmfusion-$TYPE-$RELEASEVER" \
     --veto-ignore=missing-parents
 
     echo "Generated files are present in the appstream-data directory"
     echo "To import new sources, run:"
-    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}.xml.gz"
+    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASEVER}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASEVER}.xml.gz"
 
     echo "To bump the spec:"
     echo "rpmdev-bumpspec -c \"Regenerate\" rpmfusion-$TYPE-appstream-data.spec"
