@@ -8,7 +8,9 @@ main ()
 
     if [ "$RELEASE" == "master" ] || [ "$RELEASE" == "rawhide" ] || [ "$RELEASE" == "main" ]
     then
-        RELEASE=$RAWHIDE
+        RELEASE="$RAWHIDE"
+    else
+        RELEASE="${RELEASE:1}"
     fi
 
     echo "Current release is: $RELEASE"
@@ -17,20 +19,19 @@ main ()
     URL_RELEASE=""
     TEMPDIR="rpmfusion-$TYPE"
 
-    RELEASEVER="${RELEASE:1}"
 
     rm -rf "$TEMPDIR"
     mkdir "$TEMPDIR" -pv
     cd "$TEMPDIR" || exit 1
 
-    if [ $RELEASEVER -le $RAWHIDE ] && [ $RELEASEVER -ge $((RAWHIDE - 3)) ]; then
+    if [ $RELEASE -le $RAWHIDE ] && [ $RELEASE -ge $((RAWHIDE - 3)) ]; then
         if [ "$RELEASE" == "$RAWHIDE" ]
         then
             URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/rawhide/Everything/x86_64/os/*"
         else
-            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/${RELEASEVER}/Everything/x86_64/os/*"
+            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/${RELEASE}/Everything/x86_64/os/*"
         fi
-        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/releases/${RELEASEVER}/Everything/x86_64/os/*"
+        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/releases/${RELEASE}/Everything/x86_64/os/*"
 
         echo "Regenerating for $RELEASE"
         rsync -avPh "$URL_RELEASE" . || rsync -avPh "$URL_DEV" .
@@ -47,12 +48,12 @@ main ()
 
     appstream-builder --verbose --include-failed --log-dir=./logs/ \
     --packages-dir=./Packages/ --temp-dir=./tmp/ --output-dir=./appstream-data/ \
-    --basename="rpmfusion-$TYPE-$RELEASEVER" --origin="rpmfusion-$TYPE-$RELEASEVER" \
+    --basename="rpmfusion-$TYPE-$RELEASE" --origin="rpmfusion-$TYPE-$RELEASE" \
     --veto-ignore=missing-parents
 
     echo "Generated files are present in the appstream-data directory"
     echo "To import new sources, run:"
-    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASEVER}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASEVER}.xml.gz"
+    echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}.xml.gz"
 
     echo "To bump the spec:"
     echo "rpmdev-bumpspec -c \"Regenerate\" rpmfusion-$TYPE-appstream-data.spec"
