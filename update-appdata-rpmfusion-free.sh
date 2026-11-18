@@ -17,24 +17,26 @@ main ()
     URL_RELEASE=""
     TEMPDIR="rpmfusion-$TYPE"
 
+    RELEASEVER="${RELEASE:1}"
+
     rm -rf "$TEMPDIR"
     mkdir "$TEMPDIR" -pv
-    cd "$TEMPDIR" || exit -1
+    cd "$TEMPDIR" || exit 1
 
-    if [ $RELEASE -le $RAWHIDE ] && [ $RELEASE -ge $((RAWHIDE - 3)) ]; then
+    if [ $RELEASEVER -le $RAWHIDE ] && [ $RELEASEVER -ge $((RAWHIDE - 3)) ]; then
         if [ "$RELEASE" == "$RAWHIDE" ]
         then
             URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/rawhide/Everything/x86_64/os/*"
         else
-            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/${RELEASE}/Everything/x86_64/os/*"
+            URL_DEV="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/development/${RELEASEVER}/Everything/x86_64/os/*"
         fi
-        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/releases/${RELEASE}/Everything/x86_64/os/*"
+        URL_RELEASE="rsync://download1.rpmfusion.org/rpmfusion/$TYPE/fedora/releases/${RELEASEVER}/Everything/x86_64/os/*"
 
         echo "Regenerating for $RELEASE"
         rsync -avPh "$URL_RELEASE" . || rsync -avPh "$URL_DEV" .
     else
         echo "Please check if ${RELEASE} is currently supported. Rawhide is at ${RAWHIDE}."
-        exit -1
+        exit 1
     fi
 
     if ! command -v appstream-builder > /dev/null
@@ -53,7 +55,7 @@ main ()
     echo "rfpkg new-sources ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}-icons.tar.gz ${TEMPDIR}/appstream-data/rpmfusion-$TYPE-${RELEASE}.xml.gz"
 
     echo "To bump the spec:"
-    echo "rpmdev-bumpspec -c "Regenerate" rpmfusion-$TYPE-appstream-data.spec"
+    echo "rpmdev-bumpspec -c \"Regenerate\" rpmfusion-$TYPE-appstream-data.spec"
 
 }
 
